@@ -149,7 +149,7 @@ class ImageManager:
                 return self.imgs[key]
             except IndexError:
                 print(f"無効なインデックスです: {key_or_idx}")
-                return self.imgs.get("notexture")
+                return self.notexture_img
 
         # 2. 名前（str）で指定された場合
         else:
@@ -378,7 +378,7 @@ class InputHandler:
         if event.key == K_ESCAPE:
             self.editer.running = False
         if event.key == K_RETURN:
-            self.editer.update_glid_list()
+            self.editer.update_grid_list()
             self.editer.resetpos_temp(sound=False)
         if event.key == K_s:
             self.editer.save_map()
@@ -400,7 +400,7 @@ class InputHandler:
         if event.button == pygame.BUTTON_X1:
             self.editer.resetpos_temp()
         if event.button == pygame.BUTTON_X2:
-            self.editer.update_glid_list()
+            self.editer.update_grid_list()
             self.editer.resetpos_temp(sound=False)
         if event.button == pygame.BUTTON_MIDDLE:
             self.editer.toggle_show_grid()
@@ -498,8 +498,8 @@ class MapEditer:
             self.audio_manager.play("cancel")
         self.temp_draw_manager.reset_pos()
 
-    def update_glid_list(self):
-        if self.temp_draw_manager.start_pos and self.temp_draw_manager.goal_pos:
+    def update_grid_list(self):
+        if self.temp_draw_manager.start_pos is not None and self.temp_draw_manager.goal_pos is not None:
             s_x, s_y = self.temp_draw_manager.start_pos
             g_x, g_y = self.temp_draw_manager.goal_pos
             for i in range(min(s_x, g_x), max(s_x, g_x) + 1):
@@ -508,10 +508,10 @@ class MapEditer:
             self.audio_manager.play("confirm")
 
     def toggle_show_grid(self):
-        self.grid_config.grid_show = not self.grid_config.grid_show
+        self.config.grid.grid_show = not self.config.grid.grid_show
 
     def load_map(self):
-        self.map_data.glid_list = self.map_data.load_grid_list(self.path_config.map, self.image_manager.img_keys)
+        self.map_data.load_grid_list(self.path_config.map, self.image_manager.img_keys)
         self.audio_manager.play("load")
 
     def run(self):
