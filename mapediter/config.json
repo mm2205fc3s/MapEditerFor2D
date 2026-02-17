@@ -1,0 +1,19 @@
+{
+    "window":{
+        "aspect": [1920, 1200],
+        "title": "Map Editor",
+        "fps": 60
+    },
+    "grid":{
+        "grid_size": 20,
+        "grid_color": [0,0,0],
+        "tempgrid_color": [255,0,0],
+        "grid_show": true,
+        "cursor_grid_color": [255,255,255]
+    },
+    "path":{
+        "map": "project/real_confront_maze/mapediter/map.json",
+        "image_folder": "project/real_confront_maze/mapediter/img",
+        "sound_folder": "project/real_confront_maze/mapediter/sound"
+    }
+}
